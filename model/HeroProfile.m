@@ -13,7 +13,7 @@
 {
 @private
     DiabloGrade _grade;
-    
+    BOOL _fallenHero;
     HeroType _heroType;
     NSString *_name;
     NSNumber *_nid;
@@ -55,7 +55,7 @@
 @synthesize stats = _stats;
 @synthesize kills = _kills;
 @synthesize death = _death;
-
+@synthesize fallenHero = _fallenHero;
 - (void) dealloc
 {
     [_name release], _name = nil;
@@ -247,7 +247,7 @@
     }
     
     ShowNetworkActivityIndicator();
-    [[DiabloAPIClient sharedClient] getPath:[NSString stringWithFormat:@"profile/%@/hero/%@",name,self.nid] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[DiabloAPIClient sharedClient] getPath:[NSString stringWithFormat:@"profile/%@/hero/%@",[[name stringByReplacingOccurrencesOfString:@" " withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],self.nid] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
        HideNetworkActivityIndicator();
         
         if( [JSON isKindOfClass:NSDictionary.class] && [JSON objectForKey:@"code"] )

@@ -51,11 +51,13 @@ typedef enum
     FollowerTypeScoundrel
 } FollowerType;
 
+
 @interface HeroProfile : NSObject
 
 @property DiabloGrade grade;
 
 @property HeroType heroType;
+@property BOOL fallenHero;
 @property (nonatomic,retain) NSNumber *nid;
 @property (nonatomic,retain) NSString *name;
 @property (nonatomic,retain) NSNumber *level;

@@ -101,6 +101,7 @@
         {
             HeroProfile *fallenHero = [[HeroProfile alloc] init];
             [fallenHero addDataWithAttributes:fallenHeroDict];
+            fallenHero.fallenHero = YES;
             [fallenHeroes addObject:fallenHero];
             [fallenHero release], fallenHero = nil;
         }
@@ -170,7 +171,7 @@
     
     ShowNetworkActivityIndicator();
     
-    [[DiabloAPIClient sharedClient] getPath:[NSString stringWithFormat:@"profile/%@/",name] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+    [[DiabloAPIClient sharedClient] getPath:[NSString stringWithFormat:@"profile/%@/index",[[name stringByReplacingOccurrencesOfString:@" " withString:@""] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
         HideNetworkActivityIndicator();
         if( [JSON isKindOfClass:NSDictionary.class] && [JSON objectForKey:@"code"] )
         {
